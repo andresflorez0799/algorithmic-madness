@@ -1,0 +1,25 @@
+{
+  "name": "algorithmic-madness",
+  "version": "1.0.0",
+  "description": "Practices of some algorithms developed in JavaScript, it is a personal practice that will evolve, don't criticize me for that.",
+  "main": "desglose-moneda.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andresflorez0799/algorithmic-madness.git"
+  },
+  "keywords": [
+    "algorithmic"
+  ],
+  "author": "Mairon Andres Florez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andresflorez0799/algorithmic-madness/issues"
+  },
+  "homepage": "https://github.com/andresflorez0799/algorithmic-madness#readme",
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
