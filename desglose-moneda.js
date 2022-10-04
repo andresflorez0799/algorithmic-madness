@@ -15,11 +15,27 @@ Por ejemplo: El desglose de 434700 mostrará lo siguiente:
 
 console.log(`Problema: ${description}\n` );
 
-const esNumero = (num) => typeof num === 'number' && !isNaN(num);
+/**
+ * Valida si el valor ingresado por parametro es una representacion de un número
+ * @param {*} numero 
+ * @returns true si el valor es una representacion de un numero
+ */
+const esNumero = (numero) => typeof numero === 'number' && !isNaN(numero);
 
-const moduloDesgloseBilletes = (cantidad, denominacion) => cantidad % denominacion;
+/**
+ * Obtiene el modulo de un numero al ser operado por un divisor dado por parametro
+ * @param {*} numero 
+ * @param {*} divisor 
+ * @returns modulo de la cantidad {numero}, NaN si el divisor es cero
+ */
+const obtenerModulo = (numero, divisor) => numero - divisor * parseInt(numero/divisor);
 
-const desgloseDinero = (cantidad) => {
+/**
+ * Analiza la cantidad ingresada por parametro y retorna por consola el desglose en billetes y monedas minimo
+ * @param {*} cantidad 
+ * @returns imprime por consola el desglose de billetes y monedas
+ */
+const desgloseDineroForma1 = (cantidad) => {
     if(cantidad <= 0 || esNumero(cantidad))
         return `La cantidad '${cantidad}' no es valida!`;
 
@@ -31,7 +47,7 @@ const desgloseDinero = (cantidad) => {
     for (let x = 0; x < denominacionesDisponibles.length; x++){ 
         let denomincionActual = denominacionesDisponibles[x];
         if(cantidad >= denomincionActual){
-            let residuo = moduloDesgloseBilletes(cantidad, denomincionActual);
+            let residuo = obtenerModulo(cantidad, denomincionActual);
             let cnt = parseInt(cantidad / denomincionActual);
             if(residuo > 0 || (residuo == 0 && cnt > 0)) {
                 stringDesglose += `${cnt} ${(denominacionMoneda.indexOf(denomincionActual) >=0 ? 'Monedas' : 'Billetes') } de ${denomincionActual}\n`;
@@ -46,7 +62,7 @@ const desgloseDinero = (cantidad) => {
 
 const cantidad = '43470';
 
-const billetes = desgloseDinero(cantidad);
+const billetes = desgloseDineroForma1(cantidad);
 console.log("\n********************************************************");
 console.log(`\Desglose para la cantidad ${cantidad}\n`);
 console.log(billetes);
