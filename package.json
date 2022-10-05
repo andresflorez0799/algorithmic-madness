@@ -2,9 +2,10 @@
   "name": "algorithmic-madness",
   "version": "1.0.0",
   "description": "Practices of some algorithms developed in JavaScript, it is a personal practice that will evolve, don't criticize me for that.",
-  "main": "desglose-moneda.js",
+  "main": "src/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/js/desglose-moneda.js"
   },
   "repository": {
     "type": "git",

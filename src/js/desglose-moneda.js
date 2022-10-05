@@ -28,7 +28,7 @@ const denominacionMoneda = [500, 200, 100, 50];
  * @param {*} numero 
  * @returns true si el valor es una representacion de un numero
  */
-const esNumero = (numero) => typeof numero === 'number' && !isNaN(numero);
+const esNumero = (numero) => typeof numero === 'number' || !isNaN(numero);
 
 /**
  * Obtiene el modulo de un numero al ser operado por un divisor dado por parametro
@@ -39,24 +39,25 @@ const esNumero = (numero) => typeof numero === 'number' && !isNaN(numero);
 const obtenerModulo = (numero, divisor) => numero - divisor * parseInt(numero/divisor);
 
 /**
- * Analiza la cantidad ingresada por parametro y retorna por consola el desglose en billetes y monedas minimo
+ * Analiza la cantidad ingresada por parametro y retorna por consola el desglose en billetes y monedas minimo utilizando for
  * @param {*} cantidad 
  * @returns imprime por consola el desglose de billetes y monedas
  */
-const desgloseDineroForma1 = (cantidad) => {
+const desgloseDineroWithFor = (cantidad) => {
     if(cantidad <= 0 || esNumero(cantidad)) return `La cantidad '${cantidad}' no es valida!`;
 
     const denominacionesDisponibles = denominacionesBilletes.concat(denominacionMoneda);
 
     let stringDesglose = '';
-
-    for (let x = 0; x < denominacionesDisponibles.length; x++){ 
+    let cantidadDenomincaciones = denominacionesDisponibles.length;
+    
+    for (let x = 0; x < cantidadDenomincaciones; x++) { 
         let denomincionActual = denominacionesDisponibles[x];
         if(cantidad >= denomincionActual){
             let residuo = obtenerModulo(cantidad, denomincionActual);
-            let cnt = parseInt(cantidad / denomincionActual);
-            if(residuo > 0 || (residuo == 0 && cnt > 0)) {
-                stringDesglose += `${cnt} ${(denominacionMoneda.indexOf(denomincionActual) >=0 
+            let totalDenominacion = parseInt(cantidad / denomincionActual);
+            if(residuo > 0 || (residuo == 0 && totalDenominacion > 0)) {
+                stringDesglose += `${totalDenominacion} ${(denominacionMoneda.indexOf(denomincionActual) >=0 
                     ? 'Monedas' 
                     : 'Billetes') } de ${denomincionActual}\n`;
             }
@@ -66,13 +67,39 @@ const desgloseDineroForma1 = (cantidad) => {
     return stringDesglose += cantidad > 0 ? `Valor no clasificado : ${cantidad}` : '';
 }
 
+/**
+ * Analiza la cantidad ingresada por parametro y retorna por consola el desglose en billetes y monedas minimo utilizando map
+ * @param {*} cantidad 
+ * @returns imprime por consola el desglose de billetes y monedas
+ */
+const desgloseDineroWithMap = (cantidad) => {
+    if(cantidad <= 0 || esNumero(cantidad)) return `La cantidad '${cantidad}' no es valida!`;
 
+    const denominacionesDisponibles = denominacionesBilletes.concat(denominacionMoneda);
+
+    let stringDesglose = '';
+
+    denominacionesDisponibles.map(denomincionActual => {
+        if(cantidad >= denomincionActual){
+            let residuo = obtenerModulo(cantidad, denomincionActual);
+            let totalDenominacion = parseInt(cantidad / denomincionActual);
+            if(residuo > 0 || (residuo == 0 && totalDenominacion > 0)) {
+                stringDesglose += `${totalDenominacion} ${(denominacionMoneda.indexOf(denomincionActual) >=0 
+                    ? 'Monedas' 
+                    : 'Billetes') } de ${denomincionActual}\n`;
+            }
+            cantidad = residuo;
+        }
+    });
+    return stringDesglose += cantidad > 0 ? `Valor no clasificado : ${cantidad}` : '';
+}
 
 /** Validar pruebas */
-const cantidad = '43470';
+const cantidad = '434700';
 
 console.log(`\Desglose para la cantidad ${cantidad}\n`);
 
-const billetes = desgloseDineroForma1(cantidad);
+const billetes = desgloseDineroWithFor(cantidad);
 
 console.log(billetes);
+
