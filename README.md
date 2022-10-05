@@ -6,4 +6,4 @@ To run code, open to folder algorithmic-madness in command line (Command prompt,
 
 run command: npm install, to update all node package
 
-run command: nodemon desglose-moneda.js
+run command: npm run start , to run default js
